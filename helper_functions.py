@@ -296,32 +296,6 @@ def calculate_cv_metrics(model, X, y, model_name, cv=5):
     return metrics_df
 
 
-def save_notebook_to_github(notebook_path, repo_url, commit_message, github_token, github_email, github_username):
-    # Configure git
-    !git config --global credential.helper cache
-    !git config --global user.email "{github_email}"
-    !git config --global user.name "{github_username}"
-
-    # Set GitHub token as environment variable
-    os.environ['GITHUB_TOKEN'] = github_token
-    token = os.getenv('GITHUB_TOKEN')
-
-    # Clone the repository
-    repo_name = repo_url.split('/')[-1].replace('.git', '')
-    !git clone https://{github_username}:{token}@github.com/{github_username}/{repo_name}.git
-
-    # Copy the notebook to the repository folder
-    !cp "{notebook_path}" "/content/{repo_name}"
-
-    # Change directory to the cloned repository
-    %cd /content/{repo_name}
-
-    # Add, commit, and push the changes
-    !git add "{os.path.basename(notebook_path)}"
-    !git commit -m "{commit_message}"
-    !git push https://{github_username}:{token}@github.com/{github_username}/{repo_name}.git
-
-
 def save_models(models_dict):
     """
     Saves multiple machine learning models to their respective files.
