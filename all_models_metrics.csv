@@ -1,0 +1,23 @@
+Model,Accuracy Train Set,F1 Score Train Set,Precision Train Set,Recall Train Set,Accuracy Test Set,F1 Score Test Set,Precision Test Set,Recall Test Set
+Decision Tree,1.0,1.0,1.0,1.0,0.63,0.69,0.68,0.7
+Decision Tree Grid Search,0.83,0.86,0.85,0.87,0.75,0.8,0.77,0.84
+Gaussian Naive Bayes,0.64,0.59,0.94,0.43,0.67,0.62,0.96,0.46
+Gaussian Naive Bayes Grid Search,0.71,0.71,0.87,0.6,0.73,0.73,0.87,0.63
+Gaussian Process Classifier,0.88,0.9,0.85,0.96,0.69,0.77,0.7,0.85
+Gaussian Process Classifier Grid Search,0.77,0.82,0.78,0.86,0.73,0.79,0.74,0.84
+K-Nearest Neighbors,0.8,0.84,0.8,0.88,0.7,0.77,0.71,0.83
+K-Nearest Neighbors Grid Search,0.77,0.82,0.78,0.87,0.68,0.75,0.69,0.81
+LinearSVC,0.76,0.8,0.79,0.81,0.77,0.81,0.79,0.82
+LinearSVC Grid Search,0.75,0.79,0.81,0.76,0.77,0.8,0.81,0.79
+Logistic Regression,0.75,0.8,0.78,0.82,0.78,0.82,0.79,0.85
+Logistic Regression Grid Search,0.75,0.82,0.73,0.93,0.66,0.76,0.65,0.91
+Random Forest,1.0,1.0,1.0,1.0,0.7,0.76,0.71,0.82
+Random Forest Grid Search,0.86,0.89,0.83,0.97,0.71,0.78,0.71,0.87
+SGD,0.72,0.75,0.8,0.7,0.72,0.74,0.82,0.67
+SGD Grid Search,0.76,0.8,0.8,0.8,0.77,0.8,0.8,0.81
+SVC,0.79,0.84,0.77,0.92,0.67,0.76,0.67,0.86
+SVC All Voting,0.76,0.8,0.8,0.8,0.76,0.8,0.79,0.81
+SVC Grid Search,0.73,0.8,0.74,0.87,0.66,0.74,0.67,0.83
+SVC Voting,0.74,0.77,0.82,0.73,0.74,0.77,0.8,0.74
+Voting Classifier,0.86,0.87,0.92,0.83,0.75,0.79,0.8,0.78
+Voting Classifier Grid Search,0.77,0.81,0.81,0.8,0.77,0.81,0.8,0.82
