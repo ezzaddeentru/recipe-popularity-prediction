@@ -99,6 +99,42 @@ def plot_model_metrics_with_size(data, width=800, height=600):
     # Show the figure
     fig.show()
 
+def evaluate_base_model_without_cv_clf(model, X_train, y_train, X_test, y_test, model_name, cm_labels):
+    """
+    Evaluate a classification model by predicting, plotting confusion matrices,
+    calculating classification metrics, and visualizing the metrics with Plotly.
+
+    Parameters:
+    - model: Trained classification model.
+    - X_train: Features of the training set.
+    - y_train: Labels of the training set.
+    - X_test: Features of the test set.
+    - y_test: Labels of the test set.
+    - model_name: Name of the model for labeling.
+    - cm_labels: Labels for confusion matrix axes.
+    
+    Returns:
+    - metrics_df: DataFrame containing the classification metrics for the model.
+    """
+    # Predict on training and test sets
+    y_train_pred = model.predict(X_train)
+    y_test_pred = model.predict(X_test)
+
+    # Plot confusion matrices
+    plot_confusion_matrix(y_train, y_train_pred, cm_labels, f'{model_name} Train Confusion Matrix')
+    plot_confusion_matrix(y_test, y_test_pred, cm_labels, f'{model_name} Test Confusion Matrix')
+    print('\n')
+
+    # Calculate and display classification metrics
+    metrics_df = classification_metrics_df(y_train, y_train_pred, y_test, y_test_pred, model_name)
+    print(f"Classification Metrics for {model_name}:\n")
+    display(metrics_df)
+    print('\n')
+
+    # Plot metrics with Plotly
+    plot_metrics_with_plotly(metrics_df)
+
+    return metrics_df
 
 
 def evaluate_base_model_clf(model, X_train, y_train, X_test, y_test, model_name, cm_labels, cv_folds=5):
