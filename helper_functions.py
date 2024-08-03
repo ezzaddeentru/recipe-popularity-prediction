@@ -1,3 +1,103 @@
+# Standard library imports
+import joblib
+
+# Data manipulation and analysis
+import pandas as pd
+import numpy as np
+
+# Machine learning
+from sklearn.linear_model import LogisticRegression, SGDClassifier, Perceptron, RidgeClassifier
+from sklearn.svm import SVC, LinearSVC, NuSVC
+from sklearn.neighbors import KNeighborsClassifier, RadiusNeighborsClassifier, NearestCentroid
+from sklearn.gaussian_process import GaussianProcessClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, GradientBoostingClassifier, AdaBoostClassifier, BaggingClassifier, VotingClassifier, StackingClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB, ComplementNB, CategoricalNB
+from sklearn.neural_network import MLPClassifier
+from sklearn.linear_model import PassiveAggressiveClassifier
+from sklearn.dummy import DummyClassifier
+
+# Model evaluation
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, make_scorer
+from sklearn.model_selection import cross_val_score
+
+# Plotting
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.graph_objs as go
+from IPython.display import display
+
+
+def plot_model_metrics_with_size(data, width=800, height=600):
+    """
+    Plots the comparison of metrics for different models using Plotly.
+    Lines representing the same metric for train and test sets have matching colors, and the text labels match the line colors.
+
+    Parameters:
+    data (pd.DataFrame): A DataFrame containing the metrics for different models.
+    width (int): The width of the figure.
+    height (int): The height of the figure.
+    """
+    # Create the figure
+    fig = go.Figure()
+
+    # Define a color map for metrics
+    color_map = {
+        'Accuracy': 'blue',
+        'F1 Score': 'green',
+        'Precision': 'orange',
+        'Recall': 'red'
+    }
+
+    # List of metrics
+    metrics = ['Accuracy', 'F1 Score', 'Precision', 'Recall']
+
+    # Add lines for each metric
+    for metric in metrics:
+        color = color_map[metric]  # Get the color for the metric
+        train_metric = f'{metric} Train Set'
+        test_metric = f'{metric} Test Set'
+
+        # Add Train Set line
+        fig.add_trace(go.Scatter(
+            x=data['Model'],
+            y=data[train_metric],
+            mode='lines+markers+text',
+            line=dict(color=color),
+            marker=dict(size=8),
+            text=data[train_metric].apply(lambda x: f'{x:.2f}'),
+            textposition='top right',  # Adjusted for better visibility
+            textfont=dict(size=10, color=color),  # Match text color with the line color
+            name=f'{metric} (Train Set)'
+        ))
+
+        # Add Test Set line
+        fig.add_trace(go.Scatter(
+            x=data['Model'],
+            y=data[test_metric],
+            mode='lines+markers+text',
+            line=dict(color=color, dash='dash'),  # Same color, dashed line for distinction
+            marker=dict(size=8),
+            text=data[test_metric].apply(lambda x: f'{x:.2f}'),
+            textposition='bottom right',  # Adjusted for better visibility
+            textfont=dict(size=10, color=color),  # Match text color with the line color
+            name=f'{metric} (Test Set)'
+        ))
+
+    # Update layout
+    fig.update_layout(
+        title='Comparison of Metrics Across Models',
+        xaxis_title='Model',
+        yaxis_title='Score',
+        legend_title='Metric',
+        xaxis=dict(tickangle=-45),  # Rotate x-axis labels for better readability
+        width=width,
+        height=height
+    )
+
+    # Show the figure
+    fig.show()
 
 
 
@@ -255,6 +355,7 @@ def combine_and_format_metrics(dfs):
 
     return metrics_pivot
 
+
 def calculate_cv_metrics(model, X, y, model_name, cv=5):
     """
     Calculate cross-validation metrics for a given model.
@@ -299,11 +400,11 @@ def calculate_cv_metrics(model, X, y, model_name, cv=5):
 def save_models(models_dict):
     """
     Saves multiple machine learning models to their respective files.
-    
+
     Args:
     - models_dict (dict): A dictionary where the keys are model names and the values are tuples
                           containing the model and the corresponding filename.
-                          Example: {'model1': (model_object1, 'model1.pkl'), 
+                          Example: {'model1': (model_object1, 'model1.pkl'),
                                     'model2': (model_object2, 'model2.pkl')}
     """
     for model_name, (model, filename) in models_dict.items():
