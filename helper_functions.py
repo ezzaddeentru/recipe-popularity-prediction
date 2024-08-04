@@ -20,7 +20,7 @@ from sklearn.dummy import DummyClassifier
 
 # Model evaluation
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, make_scorer
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, learning_curve
 
 # Plotting
 import matplotlib.pyplot as plt
@@ -28,6 +28,60 @@ import seaborn as sns
 import plotly.graph_objs as go
 from IPython.display import display
 
+
+def plot_learning_curves(model, X_train, y_train, train_sizes=[0.1, 0.33, 0.55, 0.78, 1.0], model_name='Model'):
+    """
+    Plot learning curves for a given model and training data.
+
+    Parameters:
+    - model: The machine learning model to evaluate.
+    - X_train: Features of the training set.
+    - y_train: Labels of the training set.
+    - train_sizes: List of training sizes to evaluate.
+    - model_name: Name of the model for the plot title.
+
+    Returns:
+    - None
+    """
+    # Compute learning curves
+    train_sizes, train_scores, test_scores = learning_curve(
+        model,
+        X_train,
+        y_train,
+        cv=5,
+        n_jobs=-1,
+        train_sizes=train_sizes
+    )
+
+    # Calculate mean and standard deviation of training and test scores
+    train_scores_mean = train_scores.mean(axis=1)
+    train_scores_std = train_scores.std(axis=1)
+    test_scores_mean = test_scores.mean(axis=1)
+    test_scores_std = test_scores.std(axis=1)
+
+    # Plot learning curves
+    plt.figure()
+    plt.title(f"Learning Curves for {model_name}")
+    plt.xlabel("Training examples")
+    plt.ylabel("Score")
+    plt.ylim(0, 1.1)
+    plt.grid()
+
+    # Plot training and validation scores
+    plt.plot(train_sizes, train_scores_mean, 'o-', color="r", label="Training score")
+    plt.plot(train_sizes, test_scores_mean, 'o-', color="g", label="Validation score")
+
+    # Fill areas between the mean score and standard deviation
+    plt.fill_between(train_sizes, train_scores_mean - train_scores_std, train_scores_mean + train_scores_std, alpha=0.1, color="r")
+    plt.fill_between(train_sizes, test_scores_mean - test_scores_std, test_scores_mean + test_scores_std, alpha=0.1, color="g")
+
+    # Annotate scores on the plot
+    for i, size in enumerate(train_sizes):
+        plt.text(size, train_scores_mean[i], f'{train_scores_mean[i]:.2f}', color='r', ha='center', va='bottom')
+        plt.text(size, test_scores_mean[i], f'{test_scores_mean[i]:.2f}', color='g', ha='center', va='bottom')
+
+    plt.legend(loc='lower left', bbox_to_anchor=(0, 0), shadow=True)
+    plt.show()
 
 def plot_model_metrics_with_size(data, width=800, height=600):
     """
