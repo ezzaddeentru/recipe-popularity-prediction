@@ -1,4 +1,5 @@
 # recipe-popularity-prediction  - DataCamp Professional Data Scientist Practical Exam Project
+![models_metrics](https://github.com/user-attachments/assets/d2b09dbb-fc31-4dfd-a13f-3d0185af18d9)
 
 # Frame the Problem
 #### **Business objective**
