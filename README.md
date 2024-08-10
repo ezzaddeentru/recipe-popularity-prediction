@@ -42,3 +42,7 @@ The solution will be integrated into the website’s backend system to suggest r
 
 # Data Information
 ![image](https://github.com/user-attachments/assets/fa7e88ae-a0a2-4070-a7b1-ca815e40774a)
+
+
+# Submitted Notebook 
+![image](https://www.datacamp.com/datalab/w/4f05af71-5843-419b-9e57-106b7afbbfb6)
