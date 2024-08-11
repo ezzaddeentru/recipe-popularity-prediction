@@ -1,9 +1,17 @@
 # Standard library imports
 import joblib
 
-# Data manipulation and analysis
+# Data viz
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+import plotly.graph_objects as go
+
+import scipy.stats as stats
+from scipy.stats import ttest_ind, chi2_contingency
+from scipy.stats import skew
 
 # Machine learning
 from sklearn.linear_model import LogisticRegression, SGDClassifier, Perceptron, RidgeClassifier
